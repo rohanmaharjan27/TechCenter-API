@@ -2,6 +2,37 @@ const express = require("express");
 const router = express.Router();
 const auth = require("../middleware/auth");
 const User = require("../models/users");
+const multer = require("multer");
+const path = require("path");
+const fs = require("fs");
+const auth = require("../middleware/auth");
+
+const storage = multer.diskStorage({
+  destination: function(req, res, cb) {
+    cb(null, "./images");
+  },
+  filename: function(req, file, cb) {
+    let ext = path.extname(file.originalname);
+    cb(null, "food" + Date.now() + file.originalname);
+  }
+});
+
+const fileFilter = (req, file, cb) => {
+  if (file.mimetype === "image/jpeg" || file.mimetype === "image/png") {
+    //accept
+    cb(null, true);
+  } else {
+    //reject a file
+    cb(new Error("File format not supported"), false);
+  }
+};
+const upload = multer({
+  storage: storage,
+  limits: {
+    fileSize: 1024 * 1024 * 10 //10MB
+  },
+  fileFilter: fileFilter
+});
 
 //SIGN UP ROUTE
 router.post("/register", (req, res) => {
