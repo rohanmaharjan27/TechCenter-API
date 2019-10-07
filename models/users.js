@@ -4,10 +4,10 @@ const Schema = mongoose.Schema;
 
 const userSchema = new Schema(
   {
-    first_name: {
+    firstname: {
       type: String
     },
-    last_name: {
+    lastname: {
       type: String
     },
     phone: {

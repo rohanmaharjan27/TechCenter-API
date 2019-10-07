@@ -5,7 +5,6 @@ const User = require("../models/users");
 const multer = require("multer");
 const path = require("path");
 const fs = require("fs");
-const auth = require("../middleware/auth");
 
 const storage = multer.diskStorage({
   destination: function(req, res, cb) {
@@ -45,12 +44,13 @@ router.post("/register", (req, res) => {
         });
       } else {
         const user = new User({
-          first_name: req.body.first_name,
-          last_name: req.body.last_name,
+          firstname: req.body.firstname,
+          lastname: req.body.lastname,
           phone: req.body.phone,
           address: req.body.address,
           email: req.body.email,
           password: req.body.password,
+          userimagename: req.body.userimagename,
           usertype: "user"
         });
         user
@@ -94,12 +94,13 @@ router.post("/login", async function(req, res) {
         token: token,
         user: user,
         id: user._id,
-        first_name: user.first_name,
-        last_name: user.last_name,
+        firstname: user.firstname,
+        lastname: user.lastname,
         email: user.email,
         phone: user.phone,
         address: user.address,
         password: user.password,
+        userimagename: req.body.userimagename,
         usertype: user.usertype
       });
     } else {
@@ -137,6 +138,7 @@ router.put("/updateUser/:id", function(req, res) {
         phone: req.body.phone,
         address: req.body.address,
         email: req.body.email,
+        userimagename: req.body.userimagename,
         password: req.body.password
       }
     }
