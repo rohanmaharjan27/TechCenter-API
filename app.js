@@ -4,6 +4,7 @@ const bodyParser = require("body-parser");
 const mongoose = require("./dbHelper/mongoose");
 
 const userRoute = require("./routes/users");
+const productRoute = require("./routes/products");
 
 app.use("/images", express.static("images"));
 app.use(bodyParser.urlencoded({ extended: false }));
@@ -27,6 +28,7 @@ app.use((req, res, next) => {
 });
 
 app.use("/users", userRoute);
+app.use("/products",productRoute);
 
 //ERROR HANDLING
 app.use((req, res, next) => {
