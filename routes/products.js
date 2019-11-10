@@ -60,7 +60,7 @@ router.post("/addProduct", upload.single("product_image"), (req, res) => {
 });
 
 //Get Product Route
-router.get("/product", function(req, res) {
+router.get("/products", function(req, res) {
   product.find()
     .sort({ createdAt: -1 }) //descending order
     .exec()
