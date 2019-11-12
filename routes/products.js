@@ -32,7 +32,7 @@ const upload = multer({
 
 const Product = require("../models/products");
 
-//Add Product Route
+//ADD A PRODUCT ROUTE
 router.post("/addProduct", upload.single("product_image"), (req, res) => {
   const product = new Product({
     product_name: req.body.product_name,
@@ -59,7 +59,7 @@ router.post("/addProduct", upload.single("product_image"), (req, res) => {
     });
 });
 
-//Get Product Route
+//GET ALL PRODUCTS ROUTE
 router.get("/products", function(req, res) {
   product.find()
     .sort({ createdAt: -1 }) //descending order
@@ -72,21 +72,7 @@ router.get("/products", function(req, res) {
     });
 });
 
-//Get new Products Route
-router.get("/newproduct", function(req, res) {
-  product.find()
-    .sort({ createdAt: -1 }) //descending order
-    .limit(4)
-    .exec()
-    .then(function(product) {
-      res.send(product);
-    })
-    .catch(function(e) {
-      res.send(e);
-    });
-});
-
-//Get Products with Offer Route
+//GET PRODUCTS WITH OFFER ROUTE
 router.get("/offerproduct", function(req, res) {
   var text = "Yes";
   product.find({ product_offer: text })
@@ -100,7 +86,7 @@ router.get("/offerproduct", function(req, res) {
     });
 });
 
-//Get Products According to Category Route
+//GET PRODUCTS ACCORDING TO CATEGORY ROUTE
 router.get("/product/:product_category", function(req, res) {
   product.find({ product_category: req.params.product_category })
     .sort({ createdAt: -1 }) //sort in descending order

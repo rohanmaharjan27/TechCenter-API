@@ -5,6 +5,10 @@ const mongoose = require("./dbHelper/mongoose");
 
 const userRoute = require("./routes/users");
 const productRoute = require("./routes/products");
+const ratingRoute = require("./routes/rating");
+const orderRoute = require("./routes/orders");
+const cartRoute = require("./routes/cart");
+const wishlistRoute = require("./routes/wishlist");
 
 app.use("/images", express.static("images"));
 app.use(bodyParser.urlencoded({ extended: false }));
@@ -29,6 +33,10 @@ app.use((req, res, next) => {
 
 app.use("/users", userRoute);
 app.use("/products",productRoute);
+app.use("/ratings",ratingRoute);
+app.use("/carts",cartRoute);
+app.use("/wishlists",wishlistRoute);
+app.use("/orders",orderRoute);
 
 //ERROR HANDLING
 app.use((req, res, next) => {

@@ -3,7 +3,7 @@ const router = express.Router();
 const Cart = require("../models/cart");
 const auth = require("../middleware/auth");
 
-//route for adding to cart
+//ADDING TO CART ROUTE
 router.post("/", (req, res) => {
   Cart.find({ email: req.body.email, product_name: req.body.product_name })
   .exec()
@@ -37,7 +37,7 @@ router.post("/", (req, res) => {
     });
   });
 
-//route for getting all cart
+//GETTING CART OF A USER ROUTE
 router.get("/:email", function(req, res) {
   Cart.find({ email: req.params.email.toString() })
     .sort({ createdAt: -1 }) //sort in descending order
@@ -50,7 +50,7 @@ router.get("/:email", function(req, res) {
     });
 });
 
-//route for deleting item from cart
+//DELETING SINGLE PRODUCT FROM CART ROUTE
 router.delete("/removefromcart/:id", (req, res) => {
   Cart.findByIdAndDelete(req.params.id)
     .then(function() {

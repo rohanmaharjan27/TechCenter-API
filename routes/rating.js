@@ -1,10 +1,9 @@
 const express = require("express");
 const router = express.Router();
 const auth = require("../middleware/auth");
-
 const Rating = require("../models/rating");
 
-//Adding Rating Route
+//ADDING RATING ROUTE
 router.post("/", (req, res) => {
   Rating.find({ email: req.body.email, product_name: req.body.product_name })
     .exec()
@@ -36,7 +35,7 @@ router.post("/", (req, res) => {
     });
 });
 
-//Get Individual Rating Route
+//INDIVIDUAL RATING ROUTE
 router.post("/myRating", function(req, res) {
   try {
     Rating.find({ email: req.body.email, product_name: req.body.product_name })
@@ -52,7 +51,7 @@ router.post("/myRating", function(req, res) {
   }
 });
 
-//Update Rating Route
+//UPDATING RATING ROUTE
 router.put("/:id", function(req, res) {
   id = req.params.id.toString();
   Rating.update(
@@ -75,6 +74,7 @@ router.put("/:id", function(req, res) {
     });
 });
 
+//TOTAL RATING ROUTE
 router.get("/totalrating/:product_name", (req, res) => {
   Rating.find({ product_name: req.params.product_name })
     .select("rating")
