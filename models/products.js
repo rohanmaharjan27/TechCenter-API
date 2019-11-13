@@ -22,7 +22,7 @@ const productSchema = new Schema(
       type: String
     },
     product_rating: {
-      type: Number
+      type: String
     },
     product_offer: {
       type: String

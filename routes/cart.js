@@ -24,7 +24,7 @@ router.post("/", (req, res) => {
           .save()
           .then(result => {
             res.status(201).json({
-              message_success: "product added to cart successfully"
+              message_success: "Product added to cart"
             });
           })
           .catch(err => {

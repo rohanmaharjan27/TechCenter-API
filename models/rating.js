@@ -3,7 +3,7 @@ const Schema = mongoose.Schema;
 
 const ratingSchema = new Schema(
   {
-    phone: {
+    email: {
       type: String
     },
     product_name: {

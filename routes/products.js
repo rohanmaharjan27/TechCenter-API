@@ -4,6 +4,7 @@ const multer = require("multer");
 const path = require("path");
 const fs = require("fs");
 const auth = require("../middleware/auth");
+const Product = require("../models/products");
 
 const storage = multer.diskStorage({
   destination: function(req, res, cb) {
@@ -30,7 +31,6 @@ const upload = multer({
   fileFilter: fileFilter
 });
 
-const Product = require("../models/products");
 
 //ADD A PRODUCT ROUTE
 router.post("/addProduct", upload.single("product_image"), (req, res) => {
@@ -60,8 +60,8 @@ router.post("/addProduct", upload.single("product_image"), (req, res) => {
 });
 
 //GET ALL PRODUCTS ROUTE
-router.get("/products", function(req, res) {
-  product.find()
+router.get("/", function(req, res) {
+  Product.find()
     .sort({ createdAt: -1 }) //descending order
     .exec()
     .then(function(product) {
@@ -75,7 +75,7 @@ router.get("/products", function(req, res) {
 //GET PRODUCTS WITH OFFER ROUTE
 router.get("/offerproduct", function(req, res) {
   var text = "Yes";
-  product.find({ product_offer: text })
+  Product.find({ product_offer: text })
     .sort({ createdAt: -1 }) //descending order
     .exec()
     .then(function(product) {
@@ -88,7 +88,7 @@ router.get("/offerproduct", function(req, res) {
 
 //GET PRODUCTS ACCORDING TO CATEGORY ROUTE
 router.get("/product/:product_category", function(req, res) {
-  product.find({ product_category: req.params.product_category })
+  Product.find({ product_category: req.params.product_category })
     .sort({ createdAt: -1 }) //sort in descending order
     .exec()
     .then(function(product) {
