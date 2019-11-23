@@ -18,6 +18,8 @@ router.post("/", (req, res) => {
             product_name: req.body.product_name,
             product_price: req.body.product_price,
             product_category:req.body.product_category,
+            product_rating:req.body.product_rating,
+            date_added:req.body.date_added,
             product_imagename:req.body.product_imagename
           });
           wishlist
