@@ -9,6 +9,7 @@ const ratingRoute = require("./routes/rating");
 const orderRoute = require("./routes/orders");
 const cartRoute = require("./routes/cart");
 const wishlistRoute = require("./routes/wishlist");
+const shopRoute = require("./routes/shops");
 
 app.use("/images", express.static("images"));
 app.use(bodyParser.urlencoded({ extended: false }));
@@ -37,6 +38,7 @@ app.use("/ratings",ratingRoute);
 app.use("/carts",cartRoute);
 app.use("/wishlists",wishlistRoute);
 app.use("/orders",orderRoute);
+app.use("/shops",shopRoute);
 
 //ERROR HANDLING
 app.use((req, res, next) => {
