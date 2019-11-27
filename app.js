@@ -10,6 +10,7 @@ const orderRoute = require("./routes/orders");
 const cartRoute = require("./routes/cart");
 const wishlistRoute = require("./routes/wishlist");
 const shopRoute = require("./routes/shops");
+const categoryRoute = require("./routes/categories");
 
 app.use("/images", express.static("images"));
 app.use(bodyParser.urlencoded({ extended: false }));
@@ -39,6 +40,7 @@ app.use("/carts",cartRoute);
 app.use("/wishlists",wishlistRoute);
 app.use("/orders",orderRoute);
 app.use("/shops",shopRoute);
+app.use("/categories",categoryRoute);
 
 //ERROR HANDLING
 app.use((req, res, next) => {
