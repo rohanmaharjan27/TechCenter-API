@@ -78,7 +78,6 @@ router.post("/register", (req, res) => {
 //GETTING USER DETAILS ROUTE
 router.get("/profile", auth, function(req, res) {
   res.send(req.user);
-  console.log("Test");
 });
 
 //LOGIN ROUTE
@@ -116,24 +115,16 @@ router.post("/login", async function(req, res) {
 
 //LOGOUT ROUTE
 router.post("/logout", auth, async (req, res) => {
-  // try {
-  //   req.user.tokens = [];
-  //   await req.user.save();
-  //   res.status("201").json({
-  //     message: "Success"
-  //   });
-  // } catch (e) {
-  //   res.status(500).send();
-  // }
-  try {
-    req.user.tokens = req.user.tokens.filter((token) => {
-    return token.token !== req.token
-    })
-    await req.user.save()
-    res.send("Done")
-    } catch (e) {
-    res.status(500).send()
-    }
+   try {
+     req.user.tokens = [];
+     await req.user.save();
+     res.status("201").json({
+       message: "Success"
+     });
+   } catch (e) {
+     res.status(500).send();
+ }
+
 });
 
 //PROFILE UPDATE ROUTE
