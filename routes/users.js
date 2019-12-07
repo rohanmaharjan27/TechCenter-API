@@ -75,10 +75,28 @@ router.post("/register", (req, res) => {
     });
 });
 
+//GET ALL USERS ROUTE (DONE BY ADMIN)
+router.get("/", function(req, res) {
+  User.find()
+    .sort({ createdAt: -1 }) //descending order
+    .exec()
+    .then(function(user) {
+      res.send(user);
+    })
+    .catch(function(e) {
+      res.send(e);
+    });
+});
+
 //GETTING USER DETAILS ROUTE
 router.get("/profile", auth, function(req, res) {
   res.send(req.user);
 });
+
+//TOKEN CHECK
+router.get("/check",auth,function(req,res){
+  res.send(req.user);
+})
 
 //LOGIN ROUTE
 router.post("/login", async function(req, res) {
@@ -126,6 +144,16 @@ router.post("/logout", auth, async (req, res) => {
  }
 
 });
+
+//GETTING DATA FROM USERS TABLE (DONE BY ADMIN)
+router.get('/', function(req, res)
+        { User.find({usertype:"user"}).then(function(user)
+            {
+                res.send(user);
+        })
+        .catch(function(e){     
+            res.send(e) }); 
+        })
 
 //PROFILE UPDATE ROUTE
 router.put("/updateUser/:id", function(req, res) {

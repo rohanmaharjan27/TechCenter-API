@@ -9,10 +9,13 @@ const auth = require("../middleware/auth");
 router.post("/multiple", (req, res) => {
   const order = new Order({
     email: req.body.email,
+    address: req.body.email,
+    phone: req.body.phone,
     product_name: req.body.product_name,
     product_quantity: req.body.product_quantity,
     product_price: req.body.product_price,
     product_imagename: req.body.product_imagename,
+    payment_type:req.body.payment_type,
     date: moment(),
     status: "InTransit"
   });
@@ -31,7 +34,7 @@ router.post("/multiple", (req, res) => {
     });
 });
 
-//GETTING ALL ORDERS ROUTE
+//GETTING ALL ORDERS ROUTE (DONE BY ADMIN)
 router.get("/", function(req, res) {
   Order.find({})
     .sort({ createdAt: -1 }) //sort in descending order

@@ -23,9 +23,6 @@ const productSchema = new Schema(
     },
     product_rating: {
       type: String
-    },
-    product_offer: {
-      type: String
     }
   },
   {

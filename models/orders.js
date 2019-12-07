@@ -6,6 +6,12 @@ const orderSchema = new Schema(
     email: {
       type: String
     },
+    address: {
+      type: String
+    },
+    phone: {
+      type: String
+    },
     product_name: {
       type: String
     },
