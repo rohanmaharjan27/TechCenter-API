@@ -89,7 +89,7 @@ router.post("/addProduct", imageupload.single("imageFile"), (req, res) => {
     product_category: req.body.product_category,
     product_description: req.body.product_description,
     product_manufacturer: req.body.product_manufacturer,
-    product_imagename: req.file.path,
+    product_imagename: req.body.product_imagename,
     product_rating: "0"
   });
   product
@@ -110,7 +110,6 @@ router.post("/addProduct", imageupload.single("imageFile"), (req, res) => {
 //GET ALL PRODUCTS ROUTE
 router.get("/", function(req, res) {
   Product.find()
-    .sort({ createdAt: -1 }) //descending order
     .exec()
     .then(function(product) {
       res.send(product);
