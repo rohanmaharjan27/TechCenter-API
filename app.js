@@ -13,6 +13,7 @@ const shopRoute = require("./routes/shops");
 const categoryRoute = require("./routes/categories");
 
 app.use("/images", express.static("images"));
+app.use("/user-images", express.static("user-images"));
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
 

@@ -6,32 +6,33 @@ const multer = require("multer");
 const path = require("path");
 const fs = require("fs");
 
-const storage = multer.diskStorage({
-  destination: function(req, res, cb) {
-    cb(null, "./images");
-  },
-  filename: function(req, file, cb) {
-    let ext = path.extname(file.originalname);
-    cb(null, "food" + Date.now() + file.originalname);
-  }
+var ImagefileName;
+var storage = multer.diskStorage({
+    destination: './images/uploads',
+    filename: function (req, file, callback) {
+        const extension = path.extname(file.originalname);
+        ImagefileName= file.fieldname+Date.now()+ extension;
+         callback(null, ImagefileName);
+       
+    }
 });
 
-const fileFilter = (req, file, cb) => {
-  if (file.mimetype === "image/jpeg" || file.mimetype === "image/png") {
-    //accept
-    cb(null, true);
-  } else {
-    //reject a file
-    cb(new Error("File format not supported"), false);
-  }
-};
-const upload = multer({
-  storage: storage,
-  limits: {
-    fileSize: 1024 * 1024 * 10 //10MB
-  },
-  fileFilter: fileFilter
-});
+    var imageFileFilter = (req, file, cb) => {if
+        (!file.originalname.match(/\.(jpg|jpeg|PNG|png|gif)$/))
+         {return cb(new Error("You can upload only image files!"), false); }
+         cb(null, true);};
+
+            var upload = multer({
+                storage: storage,
+                fileFilter: imageFileFilter,
+                limits: {
+                    fileSize: 25000000
+                }
+            });
+            router.post('/userImageUpload', upload.single('profileImage'), (req, res) => { 
+              res.statusCode = 200;
+              res.json({"userImageName":ImagefileName});
+             })
 
 //SIGN UP ROUTE
 router.post("/register", (req, res) => {
@@ -156,32 +157,13 @@ router.get('/', function(req, res)
         })
 
 //PROFILE UPDATE ROUTE
-router.put("/updateUser/:id", function(req, res) {
-  uid = req.params.id;
-  User.update(
-    { _id: uid },
-    {
-      $set: {
-        firstname: req.body.firstname,
-        lastname: req.body.lastname,
-        phone: req.body.phone,
-        address: req.body.address,
-        email: req.body.email,
-        userimagename: req.body.userimagename,
-        password: req.body.password
-      }
-    }
-  )
-    .then(function(user) {
-      res.status(201).json({
-        message: "Profile Updated Successfully"
-      });
-    })
-    .catch(function(e) {
-      res.status(422).json({
-        message: "Unable to Update:" + e
-      });
-    });
-});
+router.put('/updateUser/:email',(req,res)=>{
+  email=req.params. email
+  User.findOneAndUpdate({email:email},req.body,{new:true}).then(function(user){
+    res.send(true);
+  }).catch(function(e){
+    res.send(e)
+  })
+})
 
 module.exports = router;
