@@ -90,7 +90,7 @@ router.post("/addProduct", imageupload.single("imageFile"), (req, res) => {
     product_description: req.body.product_description,
     product_manufacturer: req.body.product_manufacturer,
     product_imagename: req.body.product_imagename,
-    product_rating: "0"
+    product_rating: "1"
   });
   product
     .save()

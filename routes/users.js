@@ -8,7 +8,7 @@ const fs = require("fs");
 
 var ImagefileName;
 var storage = multer.diskStorage({
-    destination: './images/uploads',
+    destination: 'user-images',
     filename: function (req, file, callback) {
         const extension = path.extname(file.originalname);
         ImagefileName= file.fieldname+Date.now()+ extension;
