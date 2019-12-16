@@ -15,9 +15,6 @@ const wishlistSchema = new Schema(
     product_category:{
         type:String
     },
-    product_rating:{
-      type:String
-    },
     date_added:{
       type:String
     },
