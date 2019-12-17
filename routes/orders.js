@@ -9,7 +9,6 @@ const auth = require("../middleware/auth");
 router.post("/multiple", (req, res) => {
   const order = new Order({
     email: req.body.email,
-    address: req.body.address,
     phone: req.body.phone,
     product_name: req.body.product_name,
     product_quantity: req.body.product_quantity,

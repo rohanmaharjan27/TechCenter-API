@@ -6,33 +6,70 @@ const multer = require("multer");
 const path = require("path");
 const fs = require("fs");
 
-var ImagefileName;
-var storage = multer.diskStorage({
-    destination: 'user-images',
-    filename: function (req, file, callback) {
-        const extension = path.extname(file.originalname);
-        ImagefileName= file.fieldname+Date.now()+ extension;
-         callback(null, ImagefileName);
+var ImagefileName2;
+var storage2=multer.diskStorage({
+    destination:"user-images",
+    filename: (req, file, callback) => {
+        let ext = path.extname(file.originalname);
+        ImagefileName2 = file.fieldname + "-" + Date.now() + ext;
+        callback(null, ImagefileName2);
+      }
+})
+
+   const newError2="Image Files Only!";
+    var imageFileFilter2 = (req, file, cb) => {
+        if(!file.originalname.match(/\.(jpg|jpeg|png|gif)$/))
+    {return cb(newError2, false); }
+    cb(null, true);};
+   
+    var imageupload2 = multer({
+    storage: storage2});
+
+
+router.post('/imageuploaduser',imageupload2.single("imageFile"), (req, res) => {
+    var resPonseFilename2 = JSON.stringify({
+      imageFile: ImagefileName2
+    });
+    res.writeHead(200, { "Content-Type": "application/json" });
+    res.end(
+      JSON.stringify(
+        {
+          imageFile: ImagefileName2
+        },
+        null,
+        3
+      )
+    );
+  });
+
+
+// var ImagefileName;
+// var storage = multer.diskStorage({
+//     destination: 'user-images',
+//     filename: function (req, file, callback) {
+//         const extension = path.extname(file.originalname);
+//         ImagefileName= file.fieldname+Date.now()+ extension;
+//          callback(null, ImagefileName);
        
-    }
-});
+//     }
+// });
 
-    var imageFileFilter = (req, file, cb) => {if
-        (!file.originalname.match(/\.(jpg|jpeg|PNG|png|gif)$/))
-         {return cb(new Error("You can upload only image files!"), false); }
-         cb(null, true);};
+//     var imageFileFilter = (req, file, cb) => {if
+//         (!file.originalname.match(/\.(jpg|jpeg|PNG|png|gif)$/))
+//          {return cb(new Error("You can upload only image files!"), false); }
+//          cb(null, true);};
 
-            var upload = multer({
-                storage: storage,
-                fileFilter: imageFileFilter,
-                limits: {
-                    fileSize: 25000000
-                }
-            });
-            router.post('/userImageUpload', upload.single('profileImage'), (req, res) => { 
-              res.statusCode = 200;
-              res.json({"userImageName":ImagefileName});
-             })
+//             var upload = multer({
+//                 storage: storage,
+//                 fileFilter: imageFileFilter,
+//                 limits: {
+//                     fileSize: 25000000
+//                 }
+//             });
+//             router.post('/userImageUpload', upload.single('profileImage'), (req, res) => { 
+//               res.statusCode = 200;
+//               res.json({"userImageName":ImagefileName});
+//              })
 
 //SIGN UP ROUTE
 router.post("/register", (req, res) => {
